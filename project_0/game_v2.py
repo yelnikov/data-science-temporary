@@ -6,25 +6,37 @@
 # from itertools import count
 import numpy as np
 
-def random_predict(number:int=1) -> int: 
-    """
-    Function for random guess the number. 
-    Number is defaults to 1.
-
+def random_predict(number: int = np.random.randint(1, 101)) -> int: 
+    """ПК угадывает случайное число от 1 до 101, затрачивая не более 20 попыток.
+    
+     Args:
+        number (int, optional): Загаданное число. По умолчанию 1.
+        
     Returns:
-        int: number of guesses.
+        int: Число попыток
     """
     count = 0
+    min = 0 
+    max = 101
+    predict_number = np.random.randint(1, 101) # prospective number
     
     while True: 
-        count += 1
-        predict_number = np.random.randint(1,101)
-        if number == predict_number: 
+        count += 1 
+        
+        if predict_number > number: 
+            max = predict_number - 1
+            predict_number = (max + min) // 2
+            
+        elif predict_number < number:
+            min = predict_number + 1 
+            predict_number = (max + min) // 2
+            
+        else: 
             break
+        
     return count
-
-print(f'Number of attempts is {random_predict()}.')
-
+    print(f'Количество попыток: {random_predict(number)}')
+    
 def score_game(random_predict) -> int: 
     """For how many attempts on average out of 1000 approaches does our algorithm guess.
         За сколько в попыток ПК отгадает число в среднем.
@@ -36,7 +48,7 @@ def score_game(random_predict) -> int:
         int: integer, average number of attempts
     """
     count_list = [] # list for save the number of attempts
-    # np.random.seed(1) # fix the seed for reproducibility
+    #np.random.seed(1) # fix the seed for reproducibility
     random_array = np.random.randint(1, 101, size=(1000)) # made a list of numbers
     
     for number in random_array: 
@@ -46,33 +58,6 @@ def score_game(random_predict) -> int:
     
     print(f'Your algorithm guesses the number in an average of {score} attempt(s).')
     return score
-
-def random_predict_less_20(number) -> int: 
-    """ПК угадывает случайное число от 1 до 101, затрачивая не более 20 попыток.
-    
-     Args:
-        number (int, optional): Загаданное число.
-        
-    Returns:
-        int: Число попыток
-    """
-    count = 0
-    min = 1 
-    max = 101
-    
-    while True: 
-        count += 1 
-        mid = round((min + max) / 2)
-        
-        if mid > number: 
-            max = mid
-        elif mid < number: 
-            min = mid
-        else: 
-            break
-        
-    return(count)
-    print(f'Количество попыток: {random_predict_less_20(number)}')
 
 # Run
 if __name__ == '__main__': # the condition to run when the file is executable
