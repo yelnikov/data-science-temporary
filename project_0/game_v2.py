@@ -34,8 +34,8 @@ def random_predict(number: int = np.random.randint(1, 101)) -> int:
         else: 
             break
         
-    return count
-    print(f'Количество попыток: {random_predict(number)}')
+    #return count
+    #print(f'Количество попыток: {random_predict(number)}')
     
 def score_game(random_predict) -> int: 
     """For how many attempts on average out of 1000 approaches does our algorithm guess.
@@ -57,7 +57,7 @@ def score_game(random_predict) -> int:
     score = int(np.mean(count_list)) # find the average number of attempts
     
     print(f'Your algorithm guesses the number in an average of {score} attempt(s).')
-    return score
+    #return score
 
 # Run
 if __name__ == '__main__': # the condition to run when the file is executable
